@@ -1,0 +1,1795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ixmrt - Find iOS Engineers</title>
+    <style>
+        :root {
+            /* iOS Luxury Color Palette */
+            --ios-primary: #007AFF;
+            --ios-secondary: #5856D6;
+            --ios-success: #34C759;
+            --ios-warning: #FF9500;
+            --ios-error: #FF3B30;
+            --ios-purple: #AF52DE;
+            --ios-pink: #FF2D92;
+            --ios-teal: #5AC8FA;
+            
+            /* Luxury Gradients */
+            --luxury-gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --luxury-gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --luxury-gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --luxury-gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            --luxury-gradient-5: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            
+            /* Glass Morphism */
+            --glass-bg: rgba(255, 255, 255, 0.8);
+            --glass-border: rgba(0, 0, 0, 0.1);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.08);
+            --glass-backdrop: blur(20px);
+            --glass-luxury: rgba(255, 255, 255, 0.95);
+            
+            /* Typography */
+            --font-system: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-weight-thin: 100;
+            --font-weight-light: 300;
+            --font-weight-regular: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+            
+            /* Spacing */
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+            --space-2xl: 48px;
+            --space-3xl: 64px;
+            
+            /* Border Radius */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-2xl: 32px;
+            
+            /* Animations */
+            --animation-fast: 0.2s;
+            --animation-normal: 0.3s;
+            --animation-slow: 0.5s;
+            --animation-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            --animation-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --animation-ios: cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-system);
+            background: linear-gradient(135deg, #fafafa 0%, #f0f0f2 50%, #e8e8ea 100%);
+            min-height: 100vh;
+            color: #1d1d1f;
+            overflow-x: hidden;
+        }
+
+        /* Luxury Background */
+        .app-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #fafafa 0%, #f5f5f7 25%, #ffffff 50%, #f0f0f2 75%, #e8e8ea 100%);
+            z-index: -2;
+        }
+
+        .app-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(0, 122, 255, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(52, 199, 89, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(255, 45, 146, 0.03) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 414px;
+            margin: 0 auto;
+            min-height: 100vh;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: var(--glass-backdrop);
+            -webkit-backdrop-filter: var(--glass-backdrop);
+            box-shadow: var(--glass-shadow);
+            position: relative;
+        }
+
+        /* Glass Morphism Components */
+        .glass {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: var(--glass-backdrop);
+            -webkit-backdrop-filter: var(--glass-backdrop);
+            box-shadow: var(--glass-shadow);
+            border-radius: var(--radius-lg);
+        }
+
+        .glass-luxury {
+            background: var(--glass-luxury);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.12);
+            border-radius: var(--radius-xl);
+        }
+
+        /* iOS Status Bar */
+        .status-bar {
+            height: 44px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 var(--space-lg);
+            font-size: 14px;
+            font-weight: var(--font-weight-semibold);
+            background: var(--glass-luxury);
+            color: #1d1d1f;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .status-left {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            color: var(--ios-primary);
+        }
+
+        /* Navigation */
+        .nav-header {
+            padding: var(--space-xl) var(--space-lg);
+            text-align: center;
+            position: relative;
+            background: var(--glass-luxury);
+            margin-bottom: var(--space-lg);
+        }
+
+        .nav-header h1 {
+            font-size: 2.5rem;
+            font-weight: var(--font-weight-thin);
+            background: var(--luxury-gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--space-sm);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .nav-header p {
+            color: rgba(29, 29, 31, 0.7);
+            font-size: 1rem;
+            font-weight: var(--font-weight-regular);
+        }
+
+        .settings-btn {
+            position: absolute;
+            right: var(--space-lg);
+            top: var(--space-xl);
+            width: 44px;
+            height: 44px;
+            border-radius: 22px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: var(--ios-primary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all var(--animation-normal) var(--animation-ios);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .settings-btn:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Onboarding */
+        .onboarding {
+            padding: var(--space-3xl) var(--space-xl);
+            text-align: center;
+            min-height: calc(100vh - 120px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: var(--glass-luxury);
+            margin: var(--space-lg);
+            border-radius: var(--radius-2xl);
+        }
+
+        .onboarding.hidden {
+            display: none;
+        }
+
+        .onboarding-icon {
+            font-size: 5rem;
+            margin-bottom: var(--space-2xl);
+            animation: float 3s ease-in-out infinite;
+            background: var(--luxury-gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .onboarding h2 {
+            font-size: 2rem;
+            margin-bottom: var(--space-lg);
+            font-weight: var(--font-weight-light);
+            color: #1d1d1f;
+        }
+
+        .onboarding p {
+            color: rgba(29, 29, 31, 0.7);
+            line-height: 1.6;
+            margin-bottom: var(--space-2xl);
+            font-size: 1.1rem;
+            font-weight: var(--font-weight-regular);
+        }
+
+        /* Main Content */
+        .main-content {
+            display: none;
+            padding: 0 var(--space-lg) var(--space-xl);
+        }
+
+        .main-content.active {
+            display: block;
+        }
+
+        /* Search Section */
+        .search-section {
+            margin-bottom: var(--space-xl);
+        }
+
+        .search-bar {
+            position: relative;
+            margin-bottom: var(--space-lg);
+        }
+
+        .search-input {
+            width: 100%;
+            padding: var(--space-md) var(--space-lg) var(--space-md) 50px;
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--glass-border);
+            background: var(--glass-luxury);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            color: #1d1d1f;
+            font-size: 1rem;
+            font-family: var(--font-system);
+            transition: all var(--animation-normal) var(--animation-ios);
+            box-shadow: var(--glass-shadow);
+        }
+
+        .search-input::placeholder {
+            color: rgba(29, 29, 31, 0.5);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--ios-primary);
+            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1), var(--glass-shadow);
+            transform: translateY(-2px);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: var(--space-lg);
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(29, 29, 31, 0.5);
+            font-size: 1.2rem;
+        }
+
+        .location-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-md);
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: var(--radius-xl);
+            font-size: 0.9rem;
+            color: rgba(29, 29, 31, 0.8);
+            transition: all var(--animation-normal) var(--animation-ios);
+            cursor: pointer;
+        }
+
+        .location-pill:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-1px);
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .quick-action {
+            padding: var(--space-xl);
+            border-radius: var(--radius-xl);
+            background: var(--glass-luxury);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--animation-normal) var(--animation-bounce);
+            text-decoration: none;
+            color: inherit;
+            box-shadow: var(--glass-shadow);
+        }
+
+        .quick-action:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 0.98);
+        }
+
+        .quick-action-icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--space-md);
+            display: block;
+            background: var(--luxury-gradient-3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .quick-action h3 {
+            font-size: 1.1rem;
+            font-weight: var(--font-weight-medium);
+            margin-bottom: var(--space-xs);
+            color: #1d1d1f;
+        }
+
+        .quick-action p {
+            font-size: 0.9rem;
+            color: rgba(29, 29, 31, 0.6);
+            font-weight: var(--font-weight-regular);
+        }
+
+        /* Engineers Section */
+        .section {
+            margin-bottom: var(--space-xl);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: var(--font-weight-medium);
+            color: #1d1d1f;
+        }
+
+        .see-all {
+            color: var(--ios-primary);
+            font-size: 0.95rem;
+            text-decoration: none;
+            font-weight: var(--font-weight-medium);
+            transition: all var(--animation-fast) var(--animation-smooth);
+        }
+
+        .see-all:hover {
+            opacity: 0.7;
+        }
+
+        .engineers-grid {
+            display: flex;
+            gap: var(--space-md);
+            overflow-x: auto;
+            padding-bottom: var(--space-md);
+            scroll-behavior: smooth;
+        }
+
+        .engineers-grid::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .engineers-grid::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 2px;
+        }
+
+        .engineers-grid::-webkit-scrollbar-thumb {
+            background: var(--ios-primary);
+            border-radius: 2px;
+        }
+
+        .engineer-card {
+            flex: 0 0 280px;
+            background: var(--glass-luxury);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-radius: var(--radius-xl);
+            padding: var(--space-lg);
+            border: 1px solid var(--glass-border);
+            cursor: pointer;
+            transition: all var(--animation-normal) var(--animation-bounce);
+            box-shadow: var(--glass-shadow);
+        }
+
+        .engineer-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 0.98);
+        }
+
+        .engineer-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+
+        .engineer-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+            background: var(--luxury-gradient-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            font-weight: var(--font-weight-bold);
+            color: white;
+            box-shadow: 0 4px 20px rgba(0, 122, 255, 0.3);
+        }
+
+        .engineer-info h4 {
+            font-size: 1.1rem;
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--space-xs);
+            color: #1d1d1f;
+        }
+
+        .engineer-info p {
+            font-size: 0.85rem;
+            color: rgba(29, 29, 31, 0.6);
+            font-weight: var(--font-weight-regular);
+        }
+
+        .engineer-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--space-md);
+            font-size: 0.85rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-weight: var(--font-weight-semibold);
+            color: var(--ios-primary);
+            display: block;
+            font-size: 1rem;
+        }
+
+        .stat span:last-child {
+            color: rgba(29, 29, 31, 0.6);
+            font-size: 0.8rem;
+        }
+
+        .engineer-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-xs);
+        }
+
+        .tag {
+            padding: var(--space-xs) var(--space-sm);
+            background: rgba(0, 122, 255, 0.1);
+            border: 1px solid rgba(0, 122, 255, 0.2);
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            color: var(--ios-primary);
+            font-weight: var(--font-weight-medium);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            margin-bottom: var(--space-xl);
+        }
+
+        .testimonial-card {
+            background: var(--glass-luxury);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-radius: var(--radius-xl);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-md);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            transition: all var(--animation-normal) var(--animation-smooth);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .testimonial-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+        }
+
+        .testimonial-user {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 20px;
+            background: var(--luxury-gradient-4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: var(--font-weight-bold);
+            color: white;
+            box-shadow: 0 4px 20px rgba(67, 233, 123, 0.3);
+        }
+
+        .testimonial-user div:last-child div:first-child {
+            font-weight: var(--font-weight-semibold);
+            color: #1d1d1f;
+            font-size: 0.95rem;
+        }
+
+        .testimonial-user div:last-child div:last-child {
+            font-size: 0.8rem;
+            color: rgba(29, 29, 31, 0.6);
+        }
+
+        .testimonial-actions {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .action-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 18px;
+            border: none;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: rgba(29, 29, 31, 0.6);
+            cursor: pointer;
+            transition: all var(--animation-normal) var(--animation-bounce);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .action-btn:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .action-btn.liked {
+            background: rgba(255, 59, 48, 0.1);
+            color: var(--ios-error);
+            border-color: rgba(255, 59, 48, 0.3);
+        }
+
+        .testimonial-text {
+            line-height: 1.6;
+            font-size: 0.95rem;
+            color: rgba(29, 29, 31, 0.8);
+            font-weight: var(--font-weight-regular);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: var(--space-md) var(--space-xl);
+            border: none;
+            border-radius: var(--radius-xl);
+            font-size: 1rem;
+            font-weight: var(--font-weight-medium);
+            cursor: pointer;
+            transition: all var(--animation-normal) var(--animation-ios);
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            font-family: var(--font-system);
+        }
+
+        .btn-primary {
+            background: var(--luxury-gradient-1);
+            color: white;
+            border: none;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--glass-luxury);
+            color: var(--ios-primary);
+            border: 1px solid rgba(0, 122, 255, 0.3);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.98);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 122, 255, 0.15);
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 414px;
+            height: 88px;
+            background: var(--glass-luxury);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0 var(--space-lg);
+            box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.08);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-xs);
+            cursor: pointer;
+            transition: all var(--animation-normal) var(--animation-ios);
+            color: rgba(29, 29, 31, 0.6);
+            padding: var(--space-sm);
+            border-radius: var(--radius-md);
+        }
+
+        .nav-item.active {
+            color: var(--ios-primary);
+            background: rgba(0, 122, 255, 0.1);
+        }
+
+        .nav-item:hover {
+            color: var(--ios-primary);
+            background: rgba(0, 122, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .nav-icon {
+            font-size: 1.3rem;
+        }
+
+        .nav-label {
+            font-size: 0.75rem;
+            font-weight: var(--font-weight-medium);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .modal-content {
+            background: var(--glass-luxury);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            margin: 10% auto;
+            padding: var(--space-2xl);
+            border-radius: var(--radius-2xl);
+            width: 90%;
+            max-width: 400px;
+            color: #1d1d1f;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transform: scale(0.9) translateY(20px);
+            transition: all var(--animation-normal) var(--animation-bounce);
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            right: var(--space-lg);
+            top: var(--space-lg);
+            width: 32px;
+            height: 32px;
+            border-radius: 16px;
+            background: rgba(0, 0, 0, 0.1);
+            border: none;
+            color: rgba(29, 29, 31, 0.6);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all var(--animation-fast) var(--animation-smooth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: rgba(0, 0, 0, 0.2);
+            transform: scale(1.1);
+        }
+
+        /* Settings Panel */
+        .settings-panel {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 85%;
+            max-width: 320px;
+            height: 100%;
+            background: var(--glass-luxury);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            z-index: 1001;
+            transition: right var(--animation-normal) var(--animation-smooth);
+            padding: var(--space-3xl) var(--space-lg) var(--space-lg);
+            border-left: 1px solid var(--glass-border);
+            box-shadow: -8px 0 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .settings-panel.open {
+            right: 0;
+        }
+
+        .settings-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: none;
+        }
+
+        .settings-overlay.open {
+            display: block;
+        }
+
+        .settings-panel h3 {
+            color: var(--ios-primary);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--space-2xl);
+            font-size: 1.3rem;
+        }
+
+        .settings-item {
+            padding: var(--space-md) 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            transition: all var(--animation-fast) var(--animation-smooth);
+            border-radius: var(--radius-sm);
+            margin-bottom: var(--space-xs);
+        }
+
+        .settings-item:hover {
+            color: var(--ios-primary);
+            background: rgba(0, 122, 255, 0.05);
+            padding-left: var(--space-sm);
+        }
+
+        .settings-item span:first-child {
+            font-size: 1.1rem;
+        }
+
+        .notification {
+            position: fixed;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--glass-luxury);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            color: var(--ios-success);
+            padding: var(--space-md) var(--space-lg);
+            border-radius: var(--radius-xl);
+            font-weight: var(--font-weight-medium);
+            z-index: 1002;
+            opacity: 0;
+            transition: all var(--animation-normal) var(--animation-bounce);
+            border: 1px solid rgba(52, 199, 89, 0.3);
+            box-shadow: 0 8px 32px rgba(52, 199, 89, 0.2);
+        }
+
+        .notification.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(20px);
+        }
+
+        /* Coming Soon Styles */
+        .coming-soon {
+            text-align: center;
+            padding: var(--space-2xl) var(--space-lg);
+            color: rgba(29, 29, 31, 0.6);
+        }
+
+        .coming-soon-icon {
+            font-size: 3.5rem;
+            margin-bottom: var(--space-lg);
+            opacity: 0.6;
+            background: var(--luxury-gradient-5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Loading States */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: var(--space-2xl);
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(0, 122, 255, 0.2);
+            border-top: 3px solid var(--ios-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .loading-dots {
+            display: inline-flex;
+            gap: var(--space-xs);
+        }
+
+        .loading-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+            animation: loadingDots 1.4s ease-in-out infinite;
+        }
+
+        .loading-dot:nth-child(1) { animation-delay: 0s; }
+        .loading-dot:nth-child(2) { animation-delay: 0.2s; }
+        .loading-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(1deg); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes loadingDots {
+            0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+            40% { opacity: 1; transform: scale(1); }
+        }
+
+        .slide-in-left {
+            animation: slideInLeft 0.6s var(--animation-bounce);
+        }
+
+        .slide-in-right {
+            animation: slideInRight 0.6s var(--animation-bounce);
+        }
+
+        @keyframes slideInLeft {
+            0% { transform: translateX(-100px); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideInRight {
+            0% { transform: translateX(100px); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .container {
+                max-width: 100%;
+            }
+            
+            .bottom-nav {
+                max-width: 100%;
+            }
+
+            .nav-header h1 {
+                font-size: 2rem;
+            }
+
+            .quick-actions {
+                grid-template-columns: 1fr;
+                gap: var(--space-md);
+            }
+
+            .engineer-card {
+                flex: 0 0 260px;
+            }
+
+            .settings-panel {
+                width: 90%;
+            }
+        }
+
+        /* Intersection Observer Animation Classes */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="app-background"></div>
+    
+    <div class="container">
+        <!-- iOS Status Bar -->
+        <div class="status-bar">
+            <div class="status-left">
+                <span>•••</span>
+                <span>ixmrt</span>
+            </div>
+            <div>9:41 AM 🔋</div>
+        </div>
+
+        <!-- Navigation Header -->
+        <div class="nav-header">
+            <h1>ixmrt</h1>
+            <p>Find trusted iOS engineers near you</p>
+            <button class="settings-btn" onclick="toggleSettings()">⚙️</button>
+        </div>
+
+        <!-- Onboarding Screen 1 -->
+        <div class="onboarding fade-in-up" id="onboard1">
+            <div class="onboarding-icon">📱</div>
+            <h2>Welcome to ixmrt</h2>
+            <p>Connect with verified iOS device engineers across Nigerian universities. Get your devices fixed with blockchain-secured warranties.</p>
+            <button class="btn btn-primary" onclick="nextOnboard()">Get Started</button>
+        </div>
+
+        <!-- Onboarding Screen 2 -->
+        <div class="onboarding hidden" id="onboard2">
+            <div class="onboarding-icon">🎓</div>
+            <h2>University Network</h2>
+            <p>Powered by the traditional nwaboy apprenticeship system. Support student engineers while getting professional repairs on your campus.</p>
+            <div style="margin-top: var(--space-2xl); display: flex; gap: var(--space-md); justify-content: center; flex-wrap: wrap;">
+                <button class="btn btn-secondary" onclick="prevOnboard()">Back</button>
+                <button class="btn btn-primary" onclick="nextOnboard()">Continue</button>
+            </div>
+        </div>
+
+        <!-- Onboarding Screen 3 -->
+        <div class="onboarding hidden" id="onboard3">
+            <div class="onboarding-icon">💎</div>
+            <h2>Solana Secured</h2>
+            <p>All repairs protected by smart contract escrow. Your payment is secure, your warranty is guaranteed, your satisfaction is blockchain-verified.</p>
+            <div style="margin-top: var(--space-2xl); display: flex; gap: var(--space-md); justify-content: center; flex-wrap: wrap;">
+                <button class="btn btn-secondary" onclick="prevOnboard()">Back</button>
+                <button class="btn btn-primary" onclick="startApp()">Enter App</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content" id="mainContent">
+            <!-- Search Section -->
+            <div class="search-section fade-in-up">
+                <div class="search-bar">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" class="search-input" placeholder="Search for iPhone repairs, screen fix..." id="searchInput">
+                </div>
+                <div class="location-pill">
+                    📍 Computer Village, Ikeja
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions fade-in-up">
+                <div class="quick-action" onclick="findNearestVendor()">
+                    <span class="quick-action-icon">🎯</span>
+                    <h3>Find Nearest</h3>
+                    <p>Locate engineers</p>
+                </div>
+                <div class="quick-action" onclick="openSwapMarket()">
+                    <span class="quick-action-icon">🔄</span>
+                    <h3>Swap Market</h3>
+                    <p>Trade devices</p>
+                </div>
+            </div>
+
+            <!-- Featured Engineers -->
+            <div class="section fade-in-up">
+                <div class="section-header">
+                    <h3 class="section-title">Featured Engineers</h3>
+                    <a href="#" class="see-all" onclick="showAllEngineers()">See all</a>
+                </div>
+                <div class="engineers-grid" id="engineersGrid">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonials -->
+            <div class="section testimonials fade-in-up">
+                <div class="section-header">
+                    <h3 class="section-title">Student Reviews</h3>
+                    <a href="#" class="see-all">See all</a>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-user">
+                            <div class="user-avatar">AM</div>
+                            <div>
+                                <div>Adebayo M.</div>
+                                <div>UNILAG Student</div>
+                            </div>
+                        </div>
+                        <div class="testimonial-actions">
+                            <button class="action-btn" onclick="likeTestimonial(this)">❤️</button>
+                            <button class="action-btn" onclick="shareTestimonial()">📤</button>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"Fixed my iPhone 13 screen in 2 hours! The apprenticeship program helped me learn basic repairs too. Highly recommend TechFix Solutions."</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-user">
+                            <div class="user-avatar">FK</div>
+                            <div>
+                                <div>Fatima K.</div>
+                                <div>UNICAL Student</div>
+                            </div>
+                        </div>
+                        <div class="testimonial-actions">
+                            <button class="action-btn liked" onclick="likeTestimonial(this)">❤️</button>
+                            <button class="action-btn" onclick="shareTestimonial()">📤</button>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"Battery replacement was seamless. Love how the escrow system protects both parties. The engineer even taught me iPhone maintenance tips!"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <div class="nav-item active" onclick="switchTab('home')">
+                <div class="nav-icon">🏠</div>
+                <div class="nav-label">Home</div>
+            </div>
+            <div class="nav-item" onclick="switchTab('search')">
+                <div class="nav-icon">🔍</div>
+                <div class="nav-label">Search</div>
+            </div>
+            <div class="nav-item" onclick="switchTab('orders')">
+                <div class="nav-icon">📋</div>
+                <div class="nav-label">Orders</div>
+            </div>
+            <div class="nav-item" onclick="switchTab('profile')">
+                <div class="nav-icon">👤</div>
+                <div class="nav-label">Profile</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Panel -->
+    <div class="settings-overlay" onclick="closeSettings()"></div>
+    <div class="settings-panel">
+        <h3>Settings</h3>
+        
+        <div class="settings-item" onclick="showComingSoon('User Sign-In')">
+            <span>👤</span>
+            <span>Sign In (Coming Soon)</span>
+        </div>
+        <div class="settings-item" onclick="showComingSoon('Notifications')">
+            <span>🔔</span>
+            <span>Notifications</span>
+        </div>
+        <div class="settings-item" onclick="showComingSoon('User-to-User Swaps')">
+            <span>🔄</span>
+            <span>User Swap Marketplace</span>
+        </div>
+        <div class="settings-item" onclick="showComingSoon('Advanced Search')">
+            <span>🔍</span>
+            <span>Advanced Search Filters</span>
+        </div>
+        <div class="settings-item" onclick="showComingSoon('Wallet Integration')">
+            <span>💳</span>
+            <span>Solana Wallet Connect</span>
+        </div>
+        <div class="settings-item" onclick="showComingSoon('University Campus Map')">
+            <span>🗺️</span>
+            <span>Campus Location Map</span>
+        </div>
+        <div class="settings-item" onclick="goToAgent()">
+            <span>🔧</span>
+            <span>Become an Agent</span>
+        </div>
+        <div class="settings-item" onclick="goToAdmin()">
+            <span>⚡</span>
+            <span>Admin Portal</span>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="comingSoonModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <div class="coming-soon">
+                <div class="coming-soon-icon">🚀</div>
+                <h3 id="modalTitle">Feature Coming Soon</h3>
+                <p id="modalMessage">This feature is under development and will be available in the next update.</p>
+                <button class="btn btn-primary" onclick="closeModal()" style="margin-top: var(--space-lg);">Got it</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentOnboard = 1;
+        let engineers = [];
+
+        // Initialize app
+        window.addEventListener('load', function() {
+            loadEngineers();
+            checkUrlParams();
+            initializeScrollAnimations();
+        });
+
+        // Intersection Observer for scroll animations
+        function initializeScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in-up').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        function nextOnboard() {
+            if (currentOnboard < 3) {
+                document.getElementById(`onboard${currentOnboard}`).classList.add('hidden');
+                currentOnboard++;
+                document.getElementById(`onboard${currentOnboard}`).classList.remove('hidden');
+                document.getElementById(`onboard${currentOnboard}`).classList.add('visible');
+            }
+        }
+
+        function prevOnboard() {
+            if (currentOnboard > 1) {
+                document.getElementById(`onboard${currentOnboard}`).classList.add('hidden');
+                currentOnboard--;
+                document.getElementById(`onboard${currentOnboard}`).classList.remove('hidden');
+                document.getElementById(`onboard${currentOnboard}`).classList.add('visible');
+            }
+        }
+
+        function startApp() {
+            document.getElementById('onboard3').classList.add('hidden');
+            document.getElementById('mainContent').classList.add('active');
+            
+            // Trigger animations for main content
+            setTimeout(() => {
+                document.querySelectorAll('.main-content .fade-in-up').forEach((el, index) => {
+                    setTimeout(() => {
+                        el.classList.add('visible');
+                    }, index * 100);
+                });
+            }, 100);
+        }
+
+        function loadEngineers() {
+            // Load approved engineers from shared storage
+            const allAgents = JSON.parse(localStorage.getItem('ixmrt_shared_agents') || '[]');
+            engineers = allAgents.filter(agent => agent.status === 'approved');
+            
+            renderEngineers();
+        }
+
+        function renderEngineers() {
+            const container = document.getElementById('engineersGrid');
+            
+            if (engineers.length === 0) {
+                container.innerHTML = `
+                    <div class="glass-luxury" style="text-align: center; padding: var(--space-2xl); width: 100%; color: rgba(29, 29, 31, 0.6); border-radius: var(--radius-xl);">
+                        <div style="font-size: 3rem; margin-bottom: var(--space-lg); background: var(--luxury-gradient-2); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">🔧</div>
+                        <h3 style="color: #1d1d1f; margin-bottom: var(--space-md);">No Engineers Yet</h3>
+                        <p>New engineers are joining daily. Check back soon!</p>
+                        <button class="btn btn-secondary" onclick="goToAgent()" style="margin-top: var(--space-lg);">Become First Agent</button>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = engineers.map(engineer => {
+                const initials = engineer.firmName.split(' ').map(w => w[0]).join('').slice(0, 2);
+                const specializations = engineer.specializations.split(',').slice(0, 3);
+                
+                return `
+                    <div class="engineer-card" onclick="viewEngineer('${engineer.id}')">
+                        <div class="engineer-header">
+                            <div class="engineer-avatar">${initials}</div>
+                            <div class="engineer-info">
+                                <h4>${engineer.firmName}</h4>
+                                <p>${getUniversityName(engineer.university)}</p>
+                            </div>
+                        </div>
+                        <div class="engineer-stats">
+                            <div class="stat">
+                                <span class="stat-value">⭐${engineer.escrowReputation}</span>
+                                <span>Rating</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">${engineer.completedJobs}</span>
+                                <span>Jobs</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">${engineer.experience}</span>
+                                <span>Experience</span>
+                            </div>
+                        </div>
+                        <div class="engineer-tags">
+                            ${specializations.map(spec => 
+                                `<span class="tag">${spec.trim()}</span>`
+                            ).join('')}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function viewEngineer(engineerId) {
+            const engineer = engineers.find(e => e.id === engineerId);
+            if (!engineer) return;
+
+            showModal('Engineer Profile', `
+                <div style="text-align: center; margin-bottom: var(--space-lg);">
+                    <div style="width: 80px; height: 80px; border-radius: 40px; background: ${getEngineerGradient(engineer.id)}; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: bold; margin: 0 auto var(--space-md); color: white; box-shadow: 0 8px 32px rgba(0, 122, 255, 0.3);">
+                        ${engineer.firmName.split(' ').map(w => w[0]).join('').slice(0, 2)}
+                    </div>
+                    <h3 style="color: #1d1d1f; margin-bottom: var(--space-xs);">${engineer.firmName}</h3>
+                    <p style="color: rgba(29, 29, 31, 0.6);">${engineer.contactName} • ${getUniversityName(engineer.university)}</p>
+                </div>
+                
+                <div style="margin-bottom: var(--space-lg);">
+                    <h4 style="color: var(--ios-primary); margin-bottom: var(--space-sm); font-weight: var(--font-weight-medium);">Specializations</h4>
+                    <p style="line-height: 1.6; color: rgba(29, 29, 31, 0.8);">${engineer.specializations}</p>
+                </div>
+                
+                <div class="glass" style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); margin-bottom: var(--space-lg); padding: var(--space-md); border-radius: var(--radius-lg);">
+                    <div>
+                        <div style="color: var(--ios-primary); font-weight: var(--font-weight-semibold); font-size: 1.1rem;">${engineer.experience}</div>
+                        <div style="font-size: 0.85rem; color: rgba(29, 29, 31, 0.6);">Experience</div>
+                    </div>
+                    <div>
+                        <div style="color: var(--ios-success); font-weight: var(--font-weight-semibold); font-size: 1.1rem;">${engineer.completedJobs}</div>
+                        <div style="font-size: 0.85rem; color: rgba(29, 29, 31, 0.6);">Completed Jobs</div>
+                    </div>
+                </div>
+                
+                ${engineer.apprenticeshipDuration ? `
+                    <div class="glass" style="margin-bottom: var(--space-lg); padding: var(--space-md); border-radius: var(--radius-lg);">
+                        <h4 style="color: var(--ios-purple); margin-bottom: var(--space-sm); font-weight: var(--font-weight-medium);">Apprenticeship Program</h4>
+                        <p style="font-size: 0.95rem; line-height: 1.5; color: rgba(29, 29, 31, 0.8);">Duration: ${engineer.apprenticeshipDuration}</p>
+                        ${engineer.apprenticeshipPerks ? `<p style="font-size: 0.95rem; line-height: 1.5; margin-top: var(--space-sm); color: rgba(29, 29, 31, 0.8);">${engineer.apprenticeshipPerks}</p>` : ''}
+                    </div>
+                ` : ''}
+                
+                ${engineer.tiktokHandle ? `
+                    <div class="glass" style="margin-bottom: var(--space-lg); padding: var(--space-md); border-radius: var(--radius-lg);">
+                        <h4 style="color: var(--ios-pink); margin-bottom: var(--space-sm); font-weight: var(--font-weight-medium);">Social Media</h4>
+                        <p style="color: rgba(29, 29, 31, 0.8);">🎵 ${engineer.tiktokHandle}</p>
+                    </div>
+                ` : ''}
+                
+                <div style="text-align: center; margin-top: var(--space-xl); display: flex; gap: var(--space-md); flex-wrap: wrap;">
+                    <button class="btn btn-primary" onclick="bookService('${engineer.id}')" style="flex: 1;">Book Service</button>
+                    <button class="btn btn-secondary" onclick="contactEngineer('${engineer.id}')" style="flex: 1;">Contact Engineer</button>
+                </div>
+            `);
+        }
+
+        function getEngineerGradient(id) {
+            const gradients = [
+                'var(--luxury-gradient-1)',
+                'var(--luxury-gradient-2)',
+                'var(--luxury-gradient-3)',
+                'var(--luxury-gradient-4)',
+                'var(--luxury-gradient-5)'
+            ];
+            const hash = id.split('').reduce((a, b) => a + b.charCodeAt(0), 0);
+            return gradients[hash % gradients.length];
+        }
+
+        function bookService(engineerId) {
+            showComingSoon('Service Booking');
+        }
+
+        function contactEngineer(engineerId) {
+            showComingSoon('Direct Contact');
+        }
+
+        function findNearestVendor() {
+            showModal('Nearest Vendor', `
+                <div style="text-align: center;">
+                    <div style="font-size: 4rem; margin-bottom: var(--space-lg); background: var(--luxury-gradient-3); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">📍</div>
+                    <h3 style="color: #1d1d1f; margin-bottom: var(--space-sm);">Computer Village, Ikeja</h3>
+                    <p style="color: rgba(29, 29, 31, 0.6); margin: var(--space-lg) 0;">Your nearest iOS repair hub with verified engineers</p>
+                    
+                    <div class="glass" style="padding: var(--space-lg); margin: var(--space-lg) 0; border-radius: var(--radius-lg);">
+                        <h4 style="color: var(--ios-success); margin-bottom: var(--space-md); font-weight: var(--font-weight-medium);">Available Services</h4>
+                        <div style="text-align: left; line-height: 2; color: rgba(29, 29, 31, 0.8);">
+                            ✅ iPhone Screen Replacement<br>
+                            ✅ Battery Replacement<br>
+                            ✅ Water Damage Repair<br>
+                            ✅ Logic Board Diagnostics<br>
+                            ✅ Camera & Speaker Issues
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary" onclick="showComingSoon('Turn-by-turn Navigation')" style="width: 100%; margin-top: var(--space-lg);">Get Directions</button>
+                </div>
+            `);
+        }
+
+        function openSwapMarket() {
+            showModal('Device Swap Market', `
+                <div style="text-align: center;">
+                    <div style="font-size: 4rem; margin-bottom: var(--space-lg); background: var(--luxury-gradient-5); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">🔄</div>
+                    <h3 style="color: #1d1d1f; margin-bottom: var(--space-sm);">Swap Marketplace</h3>
+                    <p style="color: rgba(29, 29, 31, 0.6); margin: var(--space-lg) 0;">Trade your device with verified vendors using Solana escrow</p>
+                    
+                    <div class="glass" style="padding: var(--space-lg); margin: var(--space-lg) 0; border-radius: var(--radius-lg);">
+                        <h4 style="color: var(--ios-purple); margin-bottom: var(--space-md); font-weight: var(--font-weight-medium);">Current Status</h4>
+                        <div style="text-align: left; color: rgba(29, 29, 31, 0.8);">
+                            ✅ Vendor-to-Client Swaps: <strong>Active</strong><br>
+                            ⏳ User-to-User Swaps: <strong>Coming Soon</strong><br>
+                            🔐 Escrow Protection: <strong>Enabled</strong>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; gap: var(--space-md); margin-top: var(--space-lg); flex-wrap: wrap;">
+                        <button class="btn btn-primary" onclick="showComingSoon('Swap Listing Creation')" style="flex: 1;">Create Swap Listing</button>
+                        <button class="btn btn-secondary" onclick="showComingSoon('Browse Available Swaps')" style="flex: 1;">Browse Swaps</button>
+                    </div>
+                </div>
+            `);
+        }
+
+        function showAllEngineers() {
+            if (engineers.length === 0) {
+                showComingSoon('Engineer Directory');
+                return;
+            }
+            
+            showModal('All Engineers', `
+                <div style="max-height: 400px; overflow-y: auto;">
+                    ${engineers.map((engineer, index) => `
+                        <div class="glass" style="display: flex; align-items: center; padding: var(--space-md); border-radius: var(--radius-md); margin-bottom: var(--space-sm); cursor: pointer; transition: all var(--animation-fast) var(--animation-smooth);" 
+                             onclick="closeModal(); setTimeout(() => viewEngineer('${engineer.id}'), 300);"
+                             onmouseover="this.style.background='rgba(255,255,255,0.98)'; this.style.transform='translateY(-2px)';"
+                             onmouseout="this.style.background='var(--glass-bg)'; this.style.transform='translateY(0)';">
+                            <div style="width: 50px; height: 50px; border-radius: 25px; background: ${getEngineerGradient(engineer.id)}; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: var(--space-md); color: white; box-shadow: 0 4px 20px rgba(0, 122, 255, 0.2);">
+                                ${engineer.firmName.split(' ').map(w => w[0]).join('').slice(0, 2)}
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: var(--font-weight-semibold); color: #1d1d1f;">${engineer.firmName}</div>
+                                <div style="font-size: 0.85rem; color: rgba(29, 29, 31, 0.6);">${getUniversityName(engineer.university)} • ⭐${engineer.escrowReputation}</div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `);
+        }
+
+        function likeTestimonial(button) {
+            button.classList.toggle('liked');
+            if (button.classList.contains('liked')) {
+                showNotification('Thanks for the feedback!');
+                // Add subtle animation
+                button.style.transform = 'scale(1.2)';
+                setTimeout(() => {
+                    button.style.transform = 'scale(1)';
+                }, 200);
+            }
+        }
+
+        function shareTestimonial() {
+            showComingSoon('Social Sharing');
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+
+            switch(tab) {
+                case 'home':
+                    // Already on home
+                    break;
+                case 'search':
+                    document.getElementById('searchInput').focus();
+                    showComingSoon('Advanced Search');
+                    break;
+                case 'orders':
+                    showComingSoon('Order History');
+                    break;
+                case 'profile':
+                    showComingSoon('User Profile');
+                    break;
+            }
+        }
+
+        function toggleSettings() {
+            const panel = document.querySelector('.settings-panel');
+            const overlay = document.querySelector('.settings-overlay');
+            
+            panel.classList.toggle('open');
+            overlay.classList.toggle('open');
+            
+            if (panel.classList.contains('open')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function closeSettings() {
+            document.querySelector('.settings-panel').classList.remove('open');
+            document.querySelector('.settings-overlay').classList.remove('open');
+            document.body.style.overflow = 'auto';
+        }
+
+        function showComingSoon(featureName) {
+            document.getElementById('modalTitle').textContent = `${featureName} - Coming Soon`;
+            document.getElementById('modalMessage').textContent = `${featureName} is under development and will be available in the next update. Stay tuned!`;
+            const modal = document.getElementById('comingSoonModal');
+            modal.style.display = 'block';
+            setTimeout(() => modal.classList.add('active'), 10);
+            closeSettings();
+            document.body.style.overflow = 'hidden';
+        }
+
+        function showModal(title, content) {
+            const modal = document.getElementById('comingSoonModal');
+            const modalContent = modal.querySelector('.modal-content');
+            modalContent.innerHTML = `
+                <span class="modal-close" onclick="closeModal()">&times;</span>
+                <h3 style="margin-bottom: var(--space-lg); color: var(--ios-primary); font-weight: var(--font-weight-medium);">${title}</h3>
+                ${content}
+            `;
+            modal.style.display = 'block';
+            setTimeout(() => modal.classList.add('active'), 10);
+            closeSettings();
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('comingSoonModal');
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }, 300);
+        }
+
+        function goToAgent() {
+            window.open('https://crvstal.github.io/agentarch', '_blank');
+            closeSettings();
+        }
+
+        function goToAdmin() {
+            window.open('https://crvstal.github.io/adminarch', '_blank');
+            closeSettings();
+        }
+
+        function checkUrlParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const newAgentId = urlParams.get('newAgent');
+            
+            if (newAgentId) {
+                // Skip onboarding and go straight to app
+                document.querySelectorAll('.onboarding').forEach(ob => ob.classList.add('hidden'));
+                document.getElementById('mainContent').classList.add('active');
+                
+                // Show notification about new agent
+                setTimeout(() => {
+                    loadEngineers();
+                    showNotification('New engineer approved and added to network!');
+                    
+                    // Trigger animations for main content
+                    setTimeout(() => {
+                        document.querySelectorAll('.main-content .fade-in-up').forEach((el, index) => {
+                            setTimeout(() => {
+                                el.classList.add('visible');
+                            }, index * 150);
+                        });
+                    }, 100);
+                    
+                    // Highlight the new engineer if found
+                    setTimeout(() => {
+                        const newEngineer = engineers.find(e => e.id === newAgentId);
+                        if (newEngineer) {
+                            viewEngineer(newAgentId);
+                        }
+                    }, 2000);
+                }, 1000);
+            }
+        }
+
+        function getUniversityName(code) {
+            const universities = {
+                'unilag': 'UNILAG',
+                'unical': 'UNICAL', 
+                'uniben': 'UNIBEN',
+                'caleb': 'Caleb University',
+                'uniabuja': 'UNIABUJA'
+            };
+            return universities[code] || code.toUpperCase();
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 100);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // Search functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    const query = this.value.toLowerCase();
+                    if (query.length > 2) {
+                        searchEngineers(query);
+                    } else if (query.length === 0) {
+                        renderEngineers();
+                    }
+                });
+
+                // Enhanced focus effects
+                searchInput.addEventListener('focus', function() {
+                    this.parentElement.style.transform = 'translateY(-2px)';
+                    this.parentElement.style.boxShadow = '0 12px 40px rgba(0, 122, 255, 0.15)';
+                });
+
+                searchInput.addEventListener('blur', function() {
+                    this.parentElement.style.transform = 'translateY(0)';
+                    this.parentElement.style.boxShadow = 'var(--glass-shadow)';
+                });
+            }
+        });
+
+        function searchEngineers(query) {
+            const filtered = engineers.filter(engineer => 
+                engineer.firmName.toLowerCase().includes(query) ||
+                engineer.specializations.toLowerCase().includes(query) ||
+                engineer.contactName.toLowerCase().includes(query) ||
+                getUniversityName(engineer.university).toLowerCase().includes(query)
+            );
+            
+            const container = document.getElementById('engineersGrid');
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="glass-luxury" style="text-align: center; padding: var(--space-2xl); width: 100%; color: rgba(29, 29, 31, 0.6); border-radius: var(--radius-xl);">
+                        <div style="font-size: 3rem; margin-bottom: var(--space-lg); background: var(--luxury-gradient-3); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">🔍</div>
+                        <h3 style="color: #1d1d1f; margin-bottom: var(--space-md);">No Results Found</h3>
+                        <p>Try searching for "screen repair", "battery", or a university name</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Use same rendering logic but with filtered results
+            const originalEngineers = engineers;
+            engineers = filtered;
+            renderEngineers();
+            engineers = originalEngineers;
+        }
+
+        // Close modals when clicking outside or pressing escape
+        window.onclick = function(event) {
+            const modal = document.getElementById('comingSoonModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+                closeSettings();
+            }
+        });
+
+        // Enhanced hover effects for interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover effects to cards
+            const cards = document.querySelectorAll('.engineer-card, .testimonial-card, .quick-action');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = '0 20px 60px rgba(0, 0, 0, 0.15)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = 'var(--glass-shadow)';
+                });
+            });
+        });
+
+        // Initialize intersection observer and load engineers
+        setTimeout(() => {
+            loadEngineers();
+            
+            // Mark first onboarding screen as visible
+            const firstOnboard = document.getElementById('onboard1');
+            if (firstOnboard) {
+                firstOnboard.classList.add('visible');
+            }
+        }, 500);
+
+        // Enhanced button interactions
+        document.addEventListener('click', function(event) {
+            if (event.target.classList.contains('btn')) {
+                // Add click animation
+                const btn = event.target;
+                btn.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    btn.style.transform = '';
+                }, 150);
+            }
+        });
+
+        // Smooth scroll for horizontal scrolling
+        document.addEventListener('DOMContentLoaded', function() {
+            const scrollContainers = document.querySelectorAll('.engineers-grid');
+            scrollContainers.forEach(container => {
+                container.addEventListener('wheel', function(e) {
+                    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+                        e.preventDefault();
+                        this.scrollBy({
+                            left: e.deltaY,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+
+        // Enhanced loading states
+        function showLoadingState(element) {
+            const originalContent = element.innerHTML;
+            element.innerHTML = `
+                <div class="loading-dots">
+                    <div class="loading-dot"></div>
+                    <div class="loading-dot"></div>
+                    <div class="loading-dot"></div>
+                </div>
+            `;
+            element.disabled = true;
+            
+            return () => {
+                element.innerHTML = originalContent;
+                element.disabled = false;
+            };
+        }
+
+        // Performance optimization: Lazy load images and content
+        const lazyLoadObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('loaded');
+                }
+            });
+        });
+
+        // Add subtle parallax effect to background
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const background = document.querySelector('.app-background');
+            if (background) {
+                background.style.transform = `translateY(${scrolled * 0.1}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
